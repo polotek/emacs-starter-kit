@@ -2,6 +2,10 @@
 ;;
 ;; Part of the Emacs Starter Kit.
 
+(global-set-key (kbd "C-l") 'goto-line)
+(global-set-key (kbd "C-:") 'goto-line)
+(global-set-key (kbd "s-w") 'delete-region)
+
 ;; You know, like Readline.
 (global-set-key (kbd "C-M-h") 'backward-kill-word)
 
@@ -10,6 +14,7 @@
 
 ;; Completion that uses many different methods to find options.
 (global-set-key (kbd "M-/") 'hippie-expand)
+(global-set-key (kbd "s-h") 'hippie-expand)
 
 ;; Perform general cleanup.
 (global-set-key (kbd "C-c n") 'cleanup-buffer)
@@ -18,7 +23,7 @@
 (global-set-key (kbd "C-<f10>") 'menu-bar-mode)
 
 ;; Font size
-(define-key global-map (kbd "C-+") 'text-scale-increase)
+(define-key global-map (kbd "C-=") 'text-scale-increase)
 (define-key global-map (kbd "C--") 'text-scale-decrease)
 
 ;; Use regex searches by default.
@@ -31,30 +36,30 @@
 (global-set-key (kbd "C-x C-i") 'ido-imenu)
 
 ;; File finding
-(global-set-key (kbd "C-x M-f") 'ido-find-file-other-window)
-(global-set-key (kbd "C-x C-M-f") 'find-file-in-project)
-(global-set-key (kbd "C-x f") 'recentf-ido-find-file)
-(global-set-key (kbd "C-c y") 'bury-buffer)
-(global-set-key (kbd "C-c r") 'revert-buffer)
-(global-set-key (kbd "M-`") 'file-cache-minibuffer-complete)
+;;(global-set-key (kbd "C-x M-f") 'ido-find-file-other-window)
+;;(global-set-key (kbd "C-x C-M-f") 'find-file-in-project)
+;;(global-set-key (kbd "C-x f") 'recentf-ido-find-file)
+;;(global-set-key (kbd "C-c y") 'bury-buffer)
+;;(global-set-key (kbd "C-c r") 'revert-buffer)
+;;(global-set-key (kbd "M-`") 'file-cache-minibuffer-complete)
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
 ;; Window switching. (C-x o goes to the next window)
-(windmove-default-keybindings) ;; Shift+direction
-(global-set-key (kbd "C-x O") (lambda () (interactive) (other-window -1))) ;; back one
-(global-set-key (kbd "C-x C-o") (lambda () (interactive) (other-window 2))) ;; forward two
+;;(windmove-default-keybindings) ;; Shift+direction
+;;(global-set-key (kbd "C-x O") (lambda () (interactive) (other-window -1))) ;; back one
+;;(global-set-key (kbd "C-x C-o") (lambda () (interactive) (other-window 2))) ;; forward two
 
 ;; Indentation help
-(global-set-key (kbd "C-x ^") 'join-line)
+(global-set-key (kbd "C-j") 'join-line)
 
-;; Start eshell or switch to it if it's active.
-(global-set-key (kbd "C-x m") 'eshell)
+;; Start shell or switch to it if it's active.
+(global-set-key (kbd "C-x m") 'shell)
 
 ;; Start a new eshell even if one is active.
 (global-set-key (kbd "C-x M") (lambda () (interactive) (eshell t)))
 
-;; Start a regular shell if you prefer that.
-(global-set-key (kbd "C-x M-m") 'shell)
+;; Start an eshell if you prefer that.
+(global-set-key (kbd "C-x M-m") 'eshell)
 
 ;; If you want to be able to M-x without meta
 (global-set-key (kbd "C-x C-m") 'execute-extended-command)

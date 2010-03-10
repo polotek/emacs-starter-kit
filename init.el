@@ -13,7 +13,7 @@
 ;; You really don't need these; trust me.
 (if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
 (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
-(if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
+;; (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
 
 ;; Load path etc.
 
@@ -21,6 +21,7 @@
                     (or (buffer-file-name) load-file-name)))
 
 (add-to-list 'load-path dotfiles-dir)
+(add-to-list 'load-path (concat dotfiles-dir "/lisp"))
 (add-to-list 'load-path (concat dotfiles-dir "/elpa-to-submit"))
 (add-to-list 'load-path (concat dotfiles-dir "/elpa-to-submit/jabber"))
 
@@ -60,6 +61,8 @@
 (require 'starter-kit-perl)
 (require 'starter-kit-ruby)
 (require 'starter-kit-js)
+
+(load "mdr-init.el")
 
 (regen-autoloads)
 (load custom-file 'noerror)

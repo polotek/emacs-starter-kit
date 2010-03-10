@@ -56,16 +56,18 @@
 (show-paren-mode 1)
 
 ;; ido-mode is like magic pixie dust!
-(when (> emacs-major-version 21)
-  (ido-mode t)
-  (setq ido-enable-prefix nil
-        ido-enable-flex-matching t
-        ido-create-new-buffer 'always
-        ido-use-filename-at-point 'guess
-        ido-max-prospects 10))
+;; (when (> emacs-major-version 21)
+;;   (ido-mode t)
+;;   (setq ido-enable-prefix nil
+;;         ido-enable-flex-matching t
+;;         ido-create-new-buffer 'always
+;;         ido-use-filename-at-point 'guess
+;;         ido-max-prospects 10))
+
+(iswitchb-mode t)
 
 (set-default 'indent-tabs-mode nil)
-(set-default 'indicate-empty-lines t)
+;; (set-default 'indicate-empty-lines t)
 (set-default 'imenu-auto-rescan t)
 
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
@@ -78,8 +80,21 @@
 (random t) ;; Seed the random-number generator
 
 ;; Hippie expand: at times perhaps too hip
-(delete 'try-expand-line hippie-expand-try-functions-list)
-(delete 'try-expand-list hippie-expand-try-functions-list)
+;; (delete 'try-expand-line hippie-expand-try-functions-list)
+;; (delete 'try-expand-list hippie-expand-try-functions-list)
+;; (delete 'try-complete-file-name-partially hippie-expand-try-functions-list)
+;; (delete 'try-complete-file-name hippie-expand-try-functions-list)
+
+(setq hippie-expand-try-functions-list '( ;;yas/hippie-try-expand 
+                                          try-expand-all-abbrevs
+                                          try-expand-dabbrev
+                                          try-expand-dabbrev-all-buffers
+                                          try-expand-dabbrev-from-kill
+                                          try-complete-file-name-partially
+                                          try-complete-file-name
+                                          try-complete-lisp-symbol-partially
+                                          try-complete-lisp-symbol))
+
 
 ;; Don't clutter up directories with files~
 (setq backup-directory-alist `(("." . ,(expand-file-name
@@ -99,7 +114,10 @@
 (add-to-list 'auto-mode-alist '("\\.rb$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("Rakefile$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("\\.js\\(on\\)?$" . js2-mode))
-(add-to-list 'auto-mode-alist '("\\.xml$" . nxml-mode))
+(add-to-list 'auto-mode-alist
+              (cons (concat "\\." (regexp-opt '("xml" "xsd" "sch" "rng" "xslt" "svg" "rss" "tal") t) "\\'")
+                    'nxml-mode))
+(add-to-list 'auto-mode-alist '("\\.\\(md\\|markdown\\|mdown\\|mkd\\|mkdn\\)$" . markdown-mode))
 
 ;; Default to unified diffs
 (setq diff-switches "-u")
@@ -124,7 +142,9 @@
 ;; Platform-specific stuff
 (when (eq system-type 'darwin)
   ;; Work around a bug on OS X where system-name is FQDN
-  (setq system-name (car (split-string system-name "\\."))))
+  (setq system-name (car (split-string system-name "\\.")))
+  (setq mac-command-modifier (quote super))
+  (setq mac-option-modifier (quote meta)))
 
 ;; make emacs use the clipboard
 (setq x-select-enable-clipboard t)
