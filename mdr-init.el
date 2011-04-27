@@ -1,3 +1,6 @@
+(setq vc-handled-backends nil)
+
+(require 'haml-mode)
 (require 'zencoding-mode)
 (add-hook 'sgml-mode-hook 'zencoding-mode)
 
@@ -12,3 +15,6 @@
 
 ;; psvn subversion enhancements
 ;; (require 'psvn)
+
+;; github gist integration
+(require 'gist)
