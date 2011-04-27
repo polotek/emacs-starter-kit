@@ -13,8 +13,10 @@
 (set-terminal-coding-system 'utf-8)
 (set-keyboard-coding-system 'utf-8)
 (prefer-coding-system 'utf-8)
+(ansi-color-for-comint-mode-on)
 
 (setq visible-bell t
+      fringe-mode (cons 4 0)
       echo-keystrokes 0.1
       font-lock-maximum-decoration t
       inhibit-startup-message t
@@ -25,13 +27,17 @@
       require-final-newline t
       truncate-partial-width-windows nil
       uniquify-buffer-name-style 'forward
+      ffap-machine-p-known 'reject
       whitespace-style '(trailing lines space-before-tab
-                                  indentation space-after-tab)
+                                  face indentation space-after-tab)
       whitespace-line-column 100
       ediff-window-setup-function 'ediff-setup-windows-plain
       oddmuse-directory (concat dotfiles-dir "oddmuse")
       xterm-mouse-mode t
       save-place-file (concat dotfiles-dir "places"))
+
+(add-to-list 'safe-local-variable-values '(lexical-binding . t))
+(add-to-list 'safe-local-variable-values '(whitespace-line-column . 80))
 
 ;; Set this to whatever browser you use
 ;; (setq browse-url-browser-function 'browse-url-firefox)
@@ -56,18 +62,16 @@
 (show-paren-mode 1)
 
 ;; ido-mode is like magic pixie dust!
-;; (when (> emacs-major-version 21)
-;;   (ido-mode t)
-;;   (setq ido-enable-prefix nil
-;;         ido-enable-flex-matching t
-;;         ido-create-new-buffer 'always
-;;         ido-use-filename-at-point 'guess
-;;         ido-max-prospects 10))
-
-(iswitchb-mode t)
+(when (> emacs-major-version 21)
+  (ido-mode t)
+  (setq ido-enable-prefix nil
+        ido-enable-flex-matching t
+        ido-create-new-buffer 'always
+        ido-use-filename-at-point 'guess
+        ido-max-prospects 10))
 
 (set-default 'indent-tabs-mode nil)
-;; (set-default 'indicate-empty-lines t)
+(set-default 'indicate-empty-lines t)
 (set-default 'imenu-auto-rescan t)
 
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
@@ -79,22 +83,13 @@
 (defalias 'yes-or-no-p 'y-or-n-p)
 (random t) ;; Seed the random-number generator
 
+(defalias 'auto-revert-tail-mode 'tail-mode)
+
 ;; Hippie expand: at times perhaps too hip
-;; (delete 'try-expand-line hippie-expand-try-functions-list)
-;; (delete 'try-expand-list hippie-expand-try-functions-list)
-;; (delete 'try-complete-file-name-partially hippie-expand-try-functions-list)
-;; (delete 'try-complete-file-name hippie-expand-try-functions-list)
-
-(setq hippie-expand-try-functions-list '( ;;yas/hippie-try-expand 
-                                          try-expand-all-abbrevs
-                                          try-expand-dabbrev
-                                          try-expand-dabbrev-all-buffers
-                                          try-expand-dabbrev-from-kill
-                                          try-complete-file-name-partially
-                                          try-complete-file-name
-                                          try-complete-lisp-symbol-partially
-                                          try-complete-lisp-symbol))
-
+(delete 'try-expand-line hippie-expand-try-functions-list)
+(delete 'try-expand-list hippie-expand-try-functions-list)
+(delete 'try-complete-file-name-partially hippie-expand-try-functions-list)
+(delete 'try-complete-file-name hippie-expand-try-functions-list)
 
 ;; Don't clutter up directories with files~
 (setq backup-directory-alist `(("." . ,(expand-file-name
@@ -119,10 +114,19 @@
                     'nxml-mode))
 (add-to-list 'auto-mode-alist '("\\.\\(md\\|markdown\\|mdown\\|mkd\\|mkdn\\)$" . markdown-mode))
 
+(eval-after-load 'grep
+  '(when (boundp 'grep-find-ignored-files)
+    (add-to-list 'grep-find-ignored-files "target")
+    (add-to-list 'grep-find-ignored-files "*.class")))
+
 ;; Default to unified diffs
-(setq diff-switches "-u")
+(setq diff-switches "-u -w"
+      magit-diff-options "-w")
 
 ;; Cosmetics
+
+(set-face-background 'vertical-border "white")
+(set-face-foreground 'vertical-border "white")
 
 (eval-after-load 'diff-mode
   '(progn
@@ -132,7 +136,9 @@
 (eval-after-load 'magit
   '(progn
      (set-face-foreground 'magit-diff-add "green3")
-     (set-face-foreground 'magit-diff-del "red3")))
+     (set-face-foreground 'magit-diff-del "red3")
+     (when (not window-system)
+       (set-face-background 'magit-item-highlight "white"))))
 
 (eval-after-load 'mumamo
   '(eval-after-load 'zenburn

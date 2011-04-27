@@ -23,7 +23,7 @@
 (global-set-key (kbd "C-<f10>") 'menu-bar-mode)
 
 ;; Font size
-(define-key global-map (kbd "C-=") 'text-scale-increase)
+(define-key global-map (kbd "C-+") 'text-scale-increase)
 (define-key global-map (kbd "C--") 'text-scale-decrease)
 
 ;; Use regex searches by default.
@@ -61,7 +61,7 @@
 ;; Start an eshell if you prefer that.
 (global-set-key (kbd "C-x M-m") 'eshell)
 
-;; If you want to be able to M-x without meta
+;; If you want to be able to M-x without meta (phones, etc)
 (global-set-key (kbd "C-x C-m") 'execute-extended-command)
 
 ;; Fetch the contents at a URL, display it raw.
@@ -76,16 +76,10 @@
 ;; For debugging Emacs modes
 (global-set-key (kbd "C-c p") 'message-point)
 
-;; Applications
-
-(global-set-key (kbd "C-c j") (lambda () (interactive) (switch-or-start 'jabber-connect "*-jabber-*")))
-(global-set-key (kbd "C-c g") (lambda () (interactive) (switch-or-start 'gnus "*Group*")))
-(global-set-key (kbd "C-c i") (lambda () (interactive) (switch-or-start (lambda ()
-                                                                     (rcirc-connect "irc.freenode.net"))
-                                                                   "*irc.freenode.net*")))
-(global-set-key (kbd "C-c J") 'jabber-send-presence)
-(global-set-key (kbd "C-c M-j") 'jabber-disconnect)
+;; So good!
 (global-set-key (kbd "C-x g") 'magit-status)
+
+(global-set-key (kbd "C-c q") 'join-line)
 
 ;; This is a little hacky since VC doesn't support git add internally
 (eval-after-load 'vc
