@@ -149,8 +149,9 @@
 (when (eq system-type 'darwin)
   ;; Work around a bug on OS X where system-name is FQDN
   (setq system-name (car (split-string system-name "\\.")))
-  (setq mac-command-modifier (quote super))
-  (setq mac-option-modifier (quote meta)))
+  (setq mac-command-modifier (quote meta))
+  (setq mac-option-modifier (quote super))
+  )
 
 ;; make emacs use the clipboard
 (setq x-select-enable-clipboard t)
