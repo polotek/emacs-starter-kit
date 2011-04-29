@@ -18,3 +18,8 @@
 
 ;; github gist integration
 (require 'gist)
+
+(require 'color-theme)
+;;(color-theme-initialize)
+(load "zen-and-art.elc")
+(color-theme-zen-and-art)
