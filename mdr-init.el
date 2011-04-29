@@ -1,6 +1,6 @@
 (setq vc-handled-backends nil)
 
-(require 'haml-mode)
+;; (require 'haml-mode)
 (require 'zencoding-mode)
 (add-hook 'sgml-mode-hook 'zencoding-mode)
 
