@@ -99,5 +99,9 @@
 (define-key global-map "\C-cl" 'org-store-link)
 (define-key global-map "\C-ca" 'org-agenda)
 
+;; mdr
+;(global-set-key "C-M-m" 'comment-or-uncomment-region)
+
 (provide 'starter-kit-bindings)
 ;;; starter-kit-bindings.el ends here
+

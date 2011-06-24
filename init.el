@@ -78,4 +78,5 @@
 (if (file-exists-p user-specific-dir)
   (mapc #'load (directory-files user-specific-dir nil ".*el$")))
 
+(server-start)
 ;;; init.el ends here
