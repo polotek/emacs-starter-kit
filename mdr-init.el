@@ -1,3 +1,4 @@
+(global-linum-mode 1)
 (setq vc-handled-backends nil)
 
 ;; (require 'haml-mode)
@@ -23,9 +24,3 @@
 ;;(color-theme-initialize)
 (load "zen-and-art.elc")
 (color-theme-zen-and-art)
-
-(add-to-list 'load-path "~/.emacs.d/vendor/textmate.el")
-(require 'textmate)
-(add-to-list 'load-path "~/.emacs.d/vendor/")
-(require 'peepopen)
-(textmate-mode)
